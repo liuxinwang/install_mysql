@@ -6,6 +6,20 @@ import commands
 import get_ip
 import pymysql.cursors
 import time
+import getpass
+
+def set_root_pwd():
+  v_index = 1
+  v_new_password = ''
+  while v_index == 1:
+    v_new_password = getpass.getpass("请设置root新密码：")
+    v_new_password2 = getpass.getpass("请再次输入root新密码：")
+    if v_new_password == v_new_password2:
+      v_index = 2
+    else:
+      print("密码不一致。")
+  
+  return v_new_password
 
 os.system("cd ~")
 mysql_download_url = "https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.16-linux-glibc2.12-x86_64.tar.xz"
@@ -46,8 +60,7 @@ os.system("/usr/local/mysql/bin/mysqld --defaults-file=/data/mysql/mysql3306/my8
 os.system("""echo "export PATH=$PATH:/usr/local/mysql/bin" >>/etc/profile""")
 commands.getoutput("source /etc/profile")
 v_password =  commands.getoutput("more /data/mysql/mysql3306/data/error.log |grep 'A temporary password' | awk 'NR==1{print $13}'")
-readonly_cmd = "/usr/local/mysql/bin/mysql -S /tmp/mysql3306.sock -p'%s' -e 'set global super_read_only=0; set global read_only=0' --connect-expired-password" % v_password
-commands.getoutput(readonly_cmd)
-updpwd_cmd = "/usr/local/mysql/bin/mysql -S /tmp/mysql3306.sock -p'%s' -e \"alter user user() identified by 'root'\" --connect-expired-password" % v_password
-commands.getoutput(updpwd_cmd)
-print("/usr/local/mysql/bin/mysql -S /tmp/mysql3306.sock -uroot -proot")
+print("数据库临时密码为：%s" % v_password)
+print("登陆语句：""/usr/local/mysql/bin/mysql -S /tmp/mysql3306.sock -uroot -p")
+print("关闭readonly语句：" + "set global super_read_only=0; set global read_only=0;")
+print("修改root密码为root示例语句：" + "alter user user() identified by 'root';")
