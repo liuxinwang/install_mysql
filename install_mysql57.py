@@ -29,7 +29,7 @@ if str(ldd_res).find(libaio_name) > -1:
 	os._exit()
 os.system("groupadd mysql")
 os.system("useradd -g mysql -d /usr/local/mysql -s /sbin/nologin -MN mysql")
-os.system("chown -R mysql:mysql /usr/local/mysql")
+os.system("chown -R mysql:mysql /usr/local/mysql/")
 os.system("mkdir -p /data/mysql/mysql3306/{data,tmp,logs}")
 os.system("cp my3306.cnf /data/mysql/mysql3306/my3306.cnf")
 server_id = get_ip.get_host_ip().split(".")[3] + "3306"
