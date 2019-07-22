@@ -57,6 +57,8 @@ relay_log_info_repository = TABLE
 gtid_mode = on
 enforce_gtid_consistency = 1
 log_slave_updates
+slave_parallel_type=LOGICAL_CLOCK
+slave_parallel_workers=4
 slave-rows-search-algorithms = 'INDEX_SCAN,HASH_SCAN'
 binlog_format = row
 binlog_checksum = 1
