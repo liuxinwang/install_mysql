@@ -17,6 +17,7 @@ character-set-server = utf8
 super_read_only=1
 read_only=1
 skip_name_resolve = 1
+default_time_zone = "+8:00"
 open_files_limit    = 65535
 back_log = 1024
 max_connections = 2000
