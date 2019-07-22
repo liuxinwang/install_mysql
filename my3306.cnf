@@ -154,6 +154,12 @@ binlog_group_commit_sync_delay=100
 binlog_group_commit_sync_no_delay_count=10
 binlog_order_commits=off
 
+# rpl_semi_sync
+rpl_semi_sync_master_enabled=1  # 0
+rpl_semi_sync_slave_enabled=1  # 0
+rpl_semi_sync_master_timeout=1000  # 10000
+rpl_semi_sync_master_wait_point=AFTER_COMMIT  # AFTER_SYNC
+
 [mysqldump]
 quick
 max_allowed_packet = 32M
