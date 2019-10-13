@@ -1,18 +1,17 @@
 [client]
-port	= 3306
-socket	= /tmp/mysql3306.sock
+port    = 3306
+socket  = /tmp/mysql3306.sock
 
 [mysql]
 prompt="\U \R:\m:\\s [\d]> "
 no-auto-rehash
 
 [mysqld]
-user	= mysql
-port	= 3306
-basedir	= /usr/local/mysql
-datadir	= /data/mysql/mysql3306/data/
-socket	= /tmp/mysql3306.sock
-#pid-file = test-mysql-new.pid
+user    = mysql
+port    = 3306
+basedir = /usr/local/mysql
+datadir = /data/mysql/mysql3306/data/
+socket  = /tmp/mysql3306.sock
 character-set-server = utf8mb4
 super_read_only=1
 read_only=1
@@ -20,7 +19,7 @@ skip_name_resolve = 1
 default_time_zone = "+8:00"
 open_files_limit    = 65535
 back_log = 1024
-max_connections = 1000
+max_connections = 2000
 max_connect_errors = 1000000
 table_open_cache = 1024
 table_definition_cache = 1024
@@ -31,8 +30,8 @@ max_allowed_packet = 32M
 sort_buffer_size = 256K
 join_buffer_size = 256K
 thread_cache_size = 300
-interactive_timeout = 600
-wait_timeout = 600
+interactive_timeout = 120
+wait_timeout = 120
 tmp_table_size = 32M
 max_heap_table_size = 32M
 slow_query_log = 1
@@ -46,18 +45,21 @@ min_examined_row_limit = 100
 log_slow_admin_statements = 1
 log_slow_slave_statements = 1
 server-id = 1003306
-log-bin = /data/mysql/mysql3306/logs/mybinlog
+log-bin = /data/mysql/mysql3306/logs/mysql-bin
 sync_binlog = 1
 binlog_cache_size = 4M
 max_binlog_cache_size = 2G
 max_binlog_size = 1G
-expire_logs_days = 3
+expire_logs_days = 7
 master_info_repository = TABLE
 relay_log_info_repository = TABLE
 gtid_mode = on
 enforce_gtid_consistency = 1
 log_slave_updates
+slave_parallel_type=LOGICAL_CLOCK
+slave_parallel_workers=4
 slave-rows-search-algorithms = 'INDEX_SCAN,HASH_SCAN'
+slave_net_timeout=30
 binlog_format = row
 binlog_checksum = 1
 relay_log_recovery = 1
@@ -77,7 +79,7 @@ innodb_spin_wait_delay = 30
 
 transaction_isolation = REPEATABLE-READ
 #innodb_additional_mem_pool_size = 16M
-innodb_buffer_pool_size = 1024M  ##upd 5120M
+innodb_buffer_pool_size = 4096M  ##upd 5120M
 innodb_buffer_pool_instances = 4
 innodb_buffer_pool_load_at_startup = 1
 innodb_buffer_pool_dump_at_shutdown = 1
@@ -87,7 +89,7 @@ innodb_log_buffer_size = 32M
 innodb_log_file_size = 2G
 innodb_log_files_in_group = 2
 innodb_max_undo_log_size = 4G
-innodb_undo_directory = undolog
+innodb_undo_directory = /data/mysql/mysql3306/data/undolog
 innodb_undo_tablespaces = 95
 
 # 根据您的服务器IOPS能力适当调整
@@ -116,7 +118,7 @@ innodb_stats_on_metadata = 0
 # some var for MySQL 8
 log_error_verbosity = 3
 innodb_print_ddl_logs = 1
-#binlog_expire_logs_seconds = 604800
+binlog_expire_logs_seconds = 604800
 #innodb_dedicated_server = 0
 
 innodb_status_file = 1
@@ -148,6 +150,12 @@ innodb_monitor_enable="module_adaptive_hash"
 binlog_group_commit_sync_delay=100
 binlog_group_commit_sync_no_delay_count=10
 binlog_order_commits=off
+
+# rpl_semi_sync
+#rpl_semi_sync_master_enabled=1  # 0
+#rpl_semi_sync_slave_enabled=1  # 0
+#rpl_semi_sync_master_timeout=1000  # 10000
+#rpl_semi_sync_master_wait_point=AFTER_COMMIT  # AFTER_SYNC
 
 [mysqldump]
 quick
