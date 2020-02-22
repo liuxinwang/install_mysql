@@ -77,7 +77,7 @@ innodb_thread_concurrency = 0
 innodb_sync_spin_loops = 100
 innodb_spin_wait_delay = 30
 
-transaction_isolation = REPEATABLE-READ
+transaction_isolation = READ-COMMITTED
 #innodb_additional_mem_pool_size = 16M
 innodb_buffer_pool_size = 4096M  ##upd 5120M
 innodb_buffer_pool_instances = 4
