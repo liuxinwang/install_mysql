@@ -113,7 +113,7 @@ innodb_rollback_on_timeout = 1
 innodb_print_all_deadlocks = 1
 innodb_file_per_table = 1
 innodb_online_alter_log_max_size = 4G
-internal_tmp_disk_storage_engine = InnoDB
+# internal_tmp_disk_storage_engine = InnoDB
 innodb_stats_on_metadata = 0
 
 # some var for MySQL 5.7
