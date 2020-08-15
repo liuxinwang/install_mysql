@@ -89,7 +89,7 @@ innodb_log_buffer_size = 32M
 innodb_log_file_size = 2G
 innodb_log_files_in_group = 2
 innodb_max_undo_log_size = 4G
-innodb_undo_directory = undolog
+innodb_undo_directory = /data/mysql/mysql3306/data/undolog
 innodb_undo_tablespaces = 95
 
 # 根据您的服务器IOPS能力适当调整
